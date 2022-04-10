@@ -3,6 +3,8 @@ using MusicLibrary.DataAccess.Abstract;
 using MusicLibrary.Entities.Concrete;
 using System.Collections.Generic;
 using System;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
+using MusicLibrary.Business.CrossCuttingConcerns.Validation.FluentValidation;
 
 namespace MusicLibrary.Business.Concrete
 {
@@ -15,6 +17,7 @@ namespace MusicLibrary.Business.Concrete
             this._musicDal = musicDal;
         }
 
+        //[ValidationAspect()]
         public void Add(Music music)
         {
             this._musicDal.Add(music);

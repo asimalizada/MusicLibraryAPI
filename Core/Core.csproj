@@ -6,9 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Entities\Concrete\" />
+    <Folder Include="Utilities\Interceptors\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.15" />
   </ItemGroup>
 
