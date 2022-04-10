@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Abstract;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusicLibrary.Entities.Concrete
 {

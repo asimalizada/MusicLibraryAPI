@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using MusicLibrary.Business.CrossCuttingConcerns.Validation.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 
 namespace MusicLibrary.Business.Concrete
 {
@@ -17,7 +18,7 @@ namespace MusicLibrary.Business.Concrete
             this._musicDal = musicDal;
         }
 
-        //[ValidationAspect()]
+        [ValidationAspect(typeof(MusicValidator))]
         public void Add(Music music)
         {
             this._musicDal.Add(music);
@@ -127,6 +128,7 @@ namespace MusicLibrary.Business.Concrete
             return result;
         }
 
+        [ValidationAspect(typeof(MusicValidator))]
         public void Update(Music music)
         {
             this._musicDal.Update(music);

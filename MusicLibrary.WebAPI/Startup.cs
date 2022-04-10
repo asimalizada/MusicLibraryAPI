@@ -1,3 +1,5 @@
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,11 +28,16 @@ namespace MusicLibrary.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //services.AddSingleton(Class, Interface);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MusicLibrary.WebAPI", Version = "v1" });
+            });
+
+            services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule()
             });
         }
 
