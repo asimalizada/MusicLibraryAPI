@@ -13,7 +13,24 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.1" />
     <PackageReference Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="log4net" Version="2.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.15" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Utilities\CustomerData\CustomerData.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CustomerData.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Utilities\CustomerData\CustomerData.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CustomerData.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
