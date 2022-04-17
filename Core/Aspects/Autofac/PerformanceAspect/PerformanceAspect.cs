@@ -1,5 +1,5 @@
 ﻿using Core.Utilities.Interceptors;
-//using Core.IoC;
+using Core.Utilities.IoC;
 using System;
 using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +15,7 @@ namespace Core.Aspects.Autofac.Performance
         public PerformanceAspect(int interval)
         {
             _interval = interval;
-            //_stopwatch = ServiceHelper.ServiceProvider.GetService<Stopwatch>();
+            _stopwatch = ServiceHelper.ServiceProvider.GetService<Stopwatch>();
         }
 
         protected override void OnBefore(IInvocation invocation)

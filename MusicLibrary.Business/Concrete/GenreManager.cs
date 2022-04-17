@@ -1,7 +1,11 @@
-﻿using MusicLibrary.Business.Abstract;
+﻿using Core.Utilities.Results;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
+using MusicLibrary.Business.Abstract;
 using MusicLibrary.DataAccess.Abstract;
 using MusicLibrary.DataAccess.Concrete.EntityFramework;
 using MusicLibrary.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 
 namespace MusicLibrary.Business.Concrete
@@ -15,39 +19,51 @@ namespace MusicLibrary.Business.Concrete
             _genreDal = genreDal;
         }
 
-        public void Add(Genre genre)
+        public IResult Add(Genre genre)
         {
             this._genreDal.Add(genre);
+
+            return new SuccessResult();
         }
 
-        public void Delete(Genre genre)
+        public IResult Delete(Genre genre)
         {
             this._genreDal.Delete(genre);
+            return new SuccessResult();
         }
 
-        public void DeleteAll()
+        public IResult DeleteAll()
         {
             this._genreDal.DeleteAll();
+            return new SuccessResult();
         }
 
-        public Genre Get(int id)
+        public IDataResult<Genre> Get(int id)
         {
-            return this._genreDal.Get(g => g.Id == id);
+            return new SuccessDataResult<Genre>
+                       (this._genreDal.Get(g => g.Id == id), "Working correctly!");
         }
 
-        public List<Genre> GetAll()
+        public IDataResult<List<Genre>> GetAll()
         {
-            return this._genreDal.GetAll();
+            if(DateTime.Now.Hour > 0 & DateTime.Now.Hour <= 3)
+            {
+                return new ErrorDataResult<List<Genre>>("This method cannot use now");
+            }
+
+            return new SuccessDataResult<List<Genre>>
+                       (this._genreDal.GetAll(), "Working correctly!");
         }
 
-        public int GetNextId()
+        public IDataResult<int> GetNextId()
         {
-            return this._genreDal.GetNextId();
+            return new SuccessDataResult<int>(this._genreDal.GetNextId());
         }
 
-        public void Update(Genre genre)
+        public IResult Update(Genre genre)
         {
             this._genreDal.Update(genre);
+            return new SuccessResult();
         }
     }
 }

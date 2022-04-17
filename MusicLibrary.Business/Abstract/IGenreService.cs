@@ -1,16 +1,17 @@
-﻿using MusicLibrary.Entities.Concrete;
+﻿using Core.Utilities.Results.Abstract;
+using MusicLibrary.Entities.Concrete;
 using System.Collections.Generic;
 
 namespace MusicLibrary.Business.Abstract
 {
     public interface IGenreService
     {
-        void Add(Genre genre);
-        void Update(Genre genre);
-        void Delete(Genre genre);
-        void DeleteAll();
-        int GetNextId();
-        Genre Get(int id);
-        List<Genre> GetAll();
+        IResult Add(Genre genre);
+        IResult Update(Genre genre);
+        IResult Delete(Genre genre);
+        IResult DeleteAll();
+        IDataResult<int> GetNextId();
+        IDataResult<Genre> Get(int id);
+        IDataResult<List<Genre>> GetAll();
     }
 }

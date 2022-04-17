@@ -19,6 +19,7 @@ namespace MusicLibrary.Business.Concrete
         }
 
         [ValidationAspect(typeof(MusicValidator))]
+
         public void Add(Music music)
         {
             this._musicDal.Add(music);
