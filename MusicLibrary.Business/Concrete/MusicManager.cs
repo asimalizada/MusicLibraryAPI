@@ -6,6 +6,10 @@ using System;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using MusicLibrary.Business.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
+using Core.Utilities.Results;
+using Business.BusinessAspects.Autofac;
 
 namespace MusicLibrary.Business.Concrete
 {
@@ -19,35 +23,43 @@ namespace MusicLibrary.Business.Concrete
         }
 
         [ValidationAspect(typeof(MusicValidator))]
-
-        public void Add(Music music)
+        [SecuredOperation("musicAdd,admin,mod")]
+        public IResult Add(Music music)
         {
             this._musicDal.Add(music);
+
+            return new SuccessResult();
         }
 
-        public void Delete(Music music)
+        [SecuredOperation("musicDelete,admin,mod")]
+        public IResult Delete(Music music)
         {
             this._musicDal.Delete(music);
+
+            return new SuccessResult();
         }
 
-        public void DeleteAll()
+        [SecuredOperation("admin,mod")]
+        public IResult DeleteAll()
         {
             this._musicDal.DeleteAll();
+
+            return new SuccessResult();
         }
 
-        public Music Get(int id)
+        public IDataResult<Music> Get(int id)
         {
-            return this._musicDal.Get(m => m.Id == id);
+            return new SuccessDataResult<Music>(this._musicDal.Get(m => m.Id == id));
         }
 
-        public List<Music> GetAll()
+        public IDataResult<List<Music>> GetAll()
         {
-            return this._musicDal.GetAll();
+            return new SuccessDataResult<List<Music>>(this._musicDal.GetAll());
         }
 
-        public List<Music> GetByGenreId(int genreId)
+        public IDataResult<List<Music>> GetByGenreId(int genreId)
         {
-            return this._musicDal.GetAll(m => m.GenreId == genreId);
+            return new SuccessDataResult<List<Music>>(this._musicDal.GetAll(m => m.GenreId == genreId));
         }
 
         public int GetNextId()
@@ -55,7 +67,7 @@ namespace MusicLibrary.Business.Concrete
             return this._musicDal.GetNextId();
         }
 
-        public List<Music> Search(string name, int genreId, int strParam)
+        public IDataResult<List<Music>> Search(string name, int genreId, int strParam)
         {
             var result = new List<Music>();
             switch (this.GetSearchOption(name, genreId))
@@ -97,7 +109,7 @@ namespace MusicLibrary.Business.Concrete
                     break;
             }
 
-            return result;
+            return new SuccessDataResult<List<Music>>(result);
         }
 
         /// <summary>
@@ -130,9 +142,12 @@ namespace MusicLibrary.Business.Concrete
         }
 
         [ValidationAspect(typeof(MusicValidator))]
-        public void Update(Music music)
+        [SecuredOperation("musicUpdate,admin,mod")]
+        public IResult Update(Music music)
         {
             this._musicDal.Update(music);
+
+            return new SuccessResult();
         }
     }
 }
